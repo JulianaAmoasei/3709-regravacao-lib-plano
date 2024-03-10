@@ -4,27 +4,25 @@ const caminho = process.argv;
 const link = caminho[2]; 
 
 fs.readFile(link, 'utf-8', (erro, result) => {
-  quebraEmParagrafos(result)
-  // verificaPalavrasDuplicadas(result)
-});
+  if (erro) {
+    console.log('qual foi o erro?', erro.code)
+    return
+  }
+  contaPalavras(result)
+ });
+ 
 
-function quebraEmParagrafos(texto) {
-  const paragrafos = texto.toLowerCase().split("\n")
+function contaPalavras(texto) {
+  const paragrafos = extraiParagrafos(texto);
   const contagem = paragrafos.flatMap((paragrafo) => {
     if (!paragrafo) return []
     return verificaPalavrasDuplicadas(paragrafo)
   })
   console.log(contagem);
+}
 
-
-  // const wc = paragraphs.map( paragraph => duplicatedWord(paragraph))
-  // x = []
-  // wc.forEach((item, i) => {
-  //   console.log(findSomething(item))
-  //   const dupliWords = findSomething(item).join(', ')
-  //     x.push({duplicated: dupliWords, paragraph:paragraphs[i]})
-  // })
-  // return x
+function extraiParagrafos(texto) {
+  return texto.toLowerCase().split("\n")
 }
 
 function limpaPalavra(palavra) {
