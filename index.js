@@ -4,22 +4,42 @@ const caminho = process.argv;
 const link = caminho[2]; 
 
 fs.readFile(link, 'utf-8', (erro, result) => {
-  verificaPalavrasDuplicadas(result)
+  quebraEmParagrafos(result)
+  // verificaPalavrasDuplicadas(result)
 });
+
+function quebraEmParagrafos(texto) {
+  const paragrafos = texto.toLowerCase().split("\n")
+  const contagem = paragrafos.map((paragrafo) => verificaPalavrasDuplicadas(paragrafo))
+  console.log(contagem);
+
+
+  // const wc = paragraphs.map( paragraph => duplicatedWord(paragraph))
+  // x = []
+  // wc.forEach((item, i) => {
+  //   console.log(findSomething(item))
+  //   const dupliWords = findSomething(item).join(', ')
+  //     x.push({duplicated: dupliWords, paragraph:paragraphs[i]})
+  // })
+  // return x
+}
+
+function limpaPalavra(palavra) {
+  return palavra.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+}
 
 function verificaPalavrasDuplicadas(texto){
   const listaPalavras = texto.split(" ")
   const resultado = {}
   listaPalavras.forEach( word => {
-    // const cleanWord = word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+    // const palavraLimpa = word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
     // if (word.length >= 3){
       resultado[word] = (resultado[word] || 0) +1
     // }
   })
-  console.log(resultado);
-  // imprimeResultado(resultado);
+  return resultado;
 }
 
-// function imprimeResultado(resultado) {
-//   console.log(resultado);
-// }
+function imprimeResultado(resultado) {
+  console.log(resultado);
+}
