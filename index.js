@@ -31,11 +31,11 @@ function limpaPalavra(palavra) {
 function verificaPalavrasDuplicadas(texto){
   const listaPalavras = texto.split(" ")
   const resultado = {}
-  listaPalavras.forEach( word => {
-    // const palavraLimpa = word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
-    // if (word.length >= 3){
-      resultado[word] = (resultado[word] || 0) +1
-    // }
+  listaPalavras.forEach(word => {
+    if (word.length >= 3) {
+    const palavraLimpa = limpaPalavra(word)
+      resultado[palavraLimpa] = (resultado[palavraLimpa] || 0) +1
+    }
   })
   return resultado;
 }
